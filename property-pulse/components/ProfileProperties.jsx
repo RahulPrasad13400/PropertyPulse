@@ -2,13 +2,27 @@
 
 import { useState } from "react"
 import Image from "next/image";
+import Link from "next/link";
+import {toast} from "react-toastify"
+import deleteProperty from "@/app/actions/deleteProperty";
 
 export default async function ProfileProperties({properties : initialProperites}) {
   const [properties, setProperties] = useState(initialProperites)
+
+  async function handleDeleteProperty(propertyId){
+    const confirmed = window.confirm("Are you sure about this")
+    if(!confirmed) return 
+    await deleteProperty(propertyId)
+
+    const updatedProperties = properties.filter((property)=> property._id !== propertyId)
+    setProperties(updatedProperties)
+    toast.success("Property Deleted Successfully!")
+  }
+
   return <>
     {properties.map((property)=>{
         return   <div key={property._id} className="mb-10">
-        <a href="/property.html">
+        <Link href={`/properties/${property._id}`}>
           <Image
             className="h-32 w-full rounded-md object-cover"
             src={property.images[0]}
@@ -17,7 +31,7 @@ export default async function ProfileProperties({properties : initialProperites}
             height={200}
             
           />
-        </a>
+        </Link>
         <div className="mt-2">
           <p className="text-lg font-semibold">{property.name}</p>
           <p className="text-gray-600">
@@ -27,15 +41,16 @@ export default async function ProfileProperties({properties : initialProperites}
           </p>
         </div>
         <div className="mt-2">
-          <a
+          <Link
             href="/add-property.html"
             className="bg-blue-500 text-white px-3 py-3 rounded-md mr-2 hover:bg-blue-600"
           >
             Edit
-          </a>
+          </Link>
           <button
             className="bg-red-500 text-white px-3 py-2 rounded-md hover:bg-red-600"
             type="button"
+            onClick={()=>handleDeleteProperty(property._id)}
           >
             Delete
           </button>
