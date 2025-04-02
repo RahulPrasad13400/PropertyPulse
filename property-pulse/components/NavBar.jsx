@@ -11,7 +11,7 @@ import profileDefault from '@/assets/images/profile.png'
 
 export default function NavBar() {
 
-  const { data : session } = useSession()
+  const { data : session, status } = useSession()
   // next.config.mjs il domain name set cheyanam 
   const profileImage = session?.user?.image
 
@@ -92,6 +92,9 @@ export default function NavBar() {
             </div>
           </div>
 
+          {status === "loading" && <div className="flex items-center justify-center h-screen">
+            <div className="animate-spin rounded-full h-8 w-8 border-t-4 border-solid border-gray-200"></div>
+            </div>}
            
           {!session && <div className="hidden md:block md:ml-6">
             <div className="flex items-center">
