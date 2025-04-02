@@ -4,6 +4,7 @@ import Footer from '@/components/Footer'
 import AuthProvider from '@/components/AuthProvider'
 import { ToastContainer } from 'react-toastify'
 import '@/assets/styles/globals.css'
+import 'react-toastify/dist/ReactToastify.css';
 
 export const metadata = {
     title : 'Propery Pulse',
@@ -21,7 +22,7 @@ export default function MainLayout({children}) {
               {children}
               </main>
             <Footer />
-            <ToastContainer />
+            <ToastContainer  position='top-center'  />
       </body>
       </html>
     </AuthProvider>
