@@ -3,6 +3,7 @@ import NavBar from '@/components/NavBar'
 import Footer from '@/components/Footer'
 import AuthProvider from '@/components/AuthProvider'
 import { ToastContainer } from 'react-toastify'
+import { GlobalProvider } from '@/context/GlobalContext'
 import '@/assets/styles/globals.css'
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -15,6 +16,7 @@ export const metadata = {
 export default function MainLayout({children}) {
   return (
     <AuthProvider>
+      <GlobalProvider>
       <html>
       <body>
             <NavBar />
@@ -25,6 +27,7 @@ export default function MainLayout({children}) {
             <ToastContainer  position='top-center'  />
       </body>
       </html>
+      </GlobalProvider>
     </AuthProvider>
   )   
 }
